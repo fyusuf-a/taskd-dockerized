@@ -16,7 +16,7 @@ if ! test -e ${TASKDDATA}/config; then
  	taskd config log ${TASKDDATA}/taskd.log
 
 	# If no public key infrastructure subdirectory found, create it and fill it with self-signed certificate and keys
-	if [ ! -d "${TASKDDATA}/pki" ]
+	if [ ! -d "${TASKDDATA}/pki" ]; then
 		mkdir -p ${TASKDDATA}/pki
 
 		cp /usr/share/taskd/pki/generate* ${TASKDDATA}/pki
