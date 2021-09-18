@@ -16,7 +16,7 @@ If you intend to use those, you should set up your client according to the secti
 
 ```
 docker run -d --name taskd \
-	-p 53589 \
+	-p 53589:53589 \
 	-v path_to_persistent_host_dir:/var/taskd \
 	[-e CERT_CN = "domain_name"] \
 	[-e CERT_ORGANIZATION = "Evil Corp"] \
