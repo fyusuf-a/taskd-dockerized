@@ -8,7 +8,7 @@ mv /add_user ${TASKDDATA}/
 # If no config file found, create it
 if ! test -e ${TASKDDATA}/config; then
 	taskd init
- 	taskd config server localhost:53589
+ 	taskd config server 0.0.0.0:53589
  	taskd config pid.file ${TASKDDATA}/taskd.pid
 
 	# Get taskd's logs to be the container's log
