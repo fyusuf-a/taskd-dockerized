@@ -3,7 +3,7 @@
 set -e
 
 # Add script to add user to current directory
-mv /add_user.sh ${TASKDDATA}/
+mv /add_user ${TASKDDATA}/
 
 # If no config file found, create it
 if ! test -e ${TASKDDATA}/config; then
