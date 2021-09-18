@@ -22,4 +22,7 @@ cd ${TASKDDATA}/pki
 echo $1 | tr ' ' '_' | xargs ./generate.client
 cd ..
 
+mv pki/$1.cert.pem .
+mv pki/$1.key.pem .
+
 exit 0
