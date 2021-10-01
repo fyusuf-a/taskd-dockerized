@@ -24,19 +24,19 @@ if ! test -e ${TASKDDATA}/config; then
 
 		cd ${TASKDDATA}/pki
 		if [ "$CERT_CN" ]; then
-			set -id "s/\(CN=\).*/\1'CERT_CN'/" vars
+			sed -id "s/\(CN=\).*/\1\"$CERT_CN\"/" vars
 		fi
 		if [ "$CERT_ORGANIZATION" ]; then
-			set -id "s/\(ORGANIZATION=\).*/\1'CERT_ORGANIZATION'/" vars
+			sed -id "s/\(ORGANIZATION=\).*/\1'CERT_ORGANIZATION'/" vars
 		fi
 		if [ "$CERT_COUNTRY" ]; then
-			set -id "s/\(COUNTRY=\).*/\1'CERT_COUNTRY'/" vars
+			sed -id "s/\(COUNTRY=\).*/\1'CERT_COUNTRY'/" vars
 		fi
 		if [ "$CERT_STATE" ]; then
-			set -id "s/\(STATE=\).*/\1'CERT_STATE'/" vars
+			sed -id "s/\(STATE=\).*/\1'CERT_STATE'/" vars
 		fi
 		if [ "$CERT_LOCALITY" ]; then
-			set -id "s/\(LOCALITY=\).*/\1'CERT_LOCALITY'/" vars
+			sed -id "s/\(LOCALITY=\).*/\1'CERT_LOCALITY'/" vars
 		fi
 		./generate
 		cd -
