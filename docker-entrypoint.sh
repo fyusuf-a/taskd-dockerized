@@ -2,13 +2,18 @@
 
 set -e
 
+if [ "$CERT_CN" ]; then
+	echo 'You have to set a $CERT_CN environment variable'
+	exit 1
+fi
+
 # Add script to add user to current directory
 mv /add_user ${TASKDDATA}/
 
 # If no config file found, create it
 if ! test -e ${TASKDDATA}/config; then
 	taskd init
- 	taskd config server 0.0.0.0:53589
+ 	taskd config server ${CERT_CN}:53589
  	taskd config pid.file ${TASKDDATA}/taskd.pid
 
 	# Get taskd's logs to be the container's log
@@ -23,9 +28,7 @@ if ! test -e ${TASKDDATA}/config; then
 		cp /usr/share/taskd/pki/vars ${TASKDDATA}/pki
 
 		cd ${TASKDDATA}/pki
-		if [ "$CERT_CN" ]; then
-			sed -id "s/\(CN=\).*/\1\"$CERT_CN\"/" vars
-		fi
+		sed -id "s/\(CN=\).*/\1\"$CERT_CN\"/" vars
 		if [ "$CERT_ORGANIZATION" ]; then
 			sed -id "s/\(ORGANIZATION=\).*/\1'CERT_ORGANIZATION'/" vars
 		fi
@@ -49,5 +52,7 @@ if ! test -e ${TASKDDATA}/config; then
 		taskd config ca.cert ${TASKDDATA}/pki/ca.cert.pem
 	fi
 fi
+
+export PATH=$PATH:${TASKDDATA}
 
 taskd server $@
