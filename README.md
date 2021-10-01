@@ -14,16 +14,24 @@ If no config and public key infrastructure are present in the persistent directo
 
 If you intend to use those, you should set up your client according to the section 'Client configuration'.
 
+Attention, the container will use the host's network. I was unable to make the binding of taskd's socket and the TLS handshake to work.
+
 ```
 docker run -d --name taskd \
-	-p 53589:53589 \
+	--network=host
 	-v path_to_persistent_host_dir:/var/taskd \
-	[-e CERT_CN = "domain_name"] \
-	[-e CERT_ORGANIZATION = "Evil Corp"] \
-	[-e CERT_COUNTRY = "USA"] \
-	[-e CERT_STATE = "NY"] \
-	[-e CERT_LOCALITY = "New York City"] \
+	-e CERT_CN="domain_name_or_ip" \
+	[-e CERT_ORGANIZATION="Evil Corp"] \
+	[-e CERT_COUNTRY="USA"] \
+	[-e CERT_STATE="NY"] \
+	[-e CERT_LOCALITY="New York City"] \
 	taskd
 ```
 
 ## Client configuration
+
+Run on your server:
+
+```
+docker exec taskd add_user your_name [your_organization]
+```

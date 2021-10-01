@@ -5,7 +5,7 @@ FROM alpine:${ALPINE_VERSION}
 RUN apk add --no-cache --no-progress taskd taskd-pki
 
 COPY add_user.sh /usr/local/sbin/add_user
-RUN chmod +x /add_user
+RUN chmod +x /usr/local/sbin/add_user
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
