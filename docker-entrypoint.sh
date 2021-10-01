@@ -7,9 +7,6 @@ if [ ! "$CERT_CN" ]; then
 	exit 1
 fi
 
-# Add script to add user to current directory
-mv /add_user ${TASKDDATA}/
-
 # If no config file found, create it
 if ! test -e ${TASKDDATA}/config; then
 	taskd init
@@ -52,7 +49,5 @@ if ! test -e ${TASKDDATA}/config; then
 		taskd config ca.cert ${TASKDDATA}/pki/ca.cert.pem
 	fi
 fi
-
-export PATH=$PATH:${TASKDDATA}
 
 taskd server $@
