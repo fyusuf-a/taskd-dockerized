@@ -2,7 +2,7 @@
 
 set -e
 
-if [ "$CERT_CN" ]; then
+if [ ! "$CERT_CN" ]; then
 	echo 'You have to set a $CERT_CN environment variable'
 	exit 1
 fi
